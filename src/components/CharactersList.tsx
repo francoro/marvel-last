@@ -1,9 +1,9 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
 import { useFetchData } from "../hooks/useFetchData";
 import { Counter } from "./Counter";
-import React from "react";
+import { Sort } from "./Sort";
 
 export const CharactersList = () => {
   const [term, setTerm] = useState("");
@@ -34,18 +34,17 @@ export const CharactersList = () => {
     setTimes(times);
   }, []);
 
+  const onSort = useCallback((order: string) => {
+    setSortOrder(order);
+  }, []);
+
   return (
     <div>
       <div>
         <h3>Search</h3>
-        {/* chnage to input ref */}
         <input type="text" onChange={(e) => handleSearch(e.target.value)} />
         <Counter times={times} onCount={onCount} />
-        <button
-          onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-        >
-          Toggle sort order name {sortOrder}
-        </button>
+        <Sort setSortOrder={onSort} sortOrder={sortOrder} />
       </div>
       <div>
         <button disabled={currentPage === 1} onClick={handlePrevClick}>
