@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Md5 } from "md5-typescript";
 
-interface ICharacters {
+export interface ICharacters {
   name: string;
   id: number;
   description: string;
