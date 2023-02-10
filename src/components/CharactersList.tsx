@@ -4,6 +4,7 @@ import "../App.css";
 import { useFetchData } from "../hooks/useFetchData";
 import { CharactersTable } from "./CharactersTable";
 import { Counter } from "./Counter";
+import { Pagination } from "./Pagination";
 import { Sort } from "./Sort";
 
 export const CharactersList = () => {
@@ -20,16 +21,16 @@ export const CharactersList = () => {
     setTerm(term);
   };
 
-  const handleNextClick = () => {
+  const handleNextClick = useCallback(() => {
     setOffset((prevOffset) => prevOffset + 10);
     setCurrentPage((nextCurrentPage) => nextCurrentPage + 1);
-  };
+  }, []);
 
-  const handlePrevClick = () => {
+  const handlePrevClick = useCallback(() => {
     if (offset === 0) return;
     setOffset((prevOffset) => prevOffset - 10);
     setCurrentPage((prevCurrentPage) => prevCurrentPage - 1);
-  };
+  }, [offset]);
 
   const onCount = useCallback((times: number) => {
     setTimes(times);
@@ -48,14 +49,11 @@ export const CharactersList = () => {
         <Sort setSortOrder={onSort} sortOrder={sortOrder} />
       </div>
       <div>
-        <button disabled={currentPage === 1} onClick={handlePrevClick}>
-          Prev
-          {currentPage}
-        </button>
-        <button onClick={handleNextClick}>
-          Next
-          {currentPage + 1}
-        </button>
+        <Pagination
+          currentPage={currentPage}
+          handlePrevClick={handlePrevClick}
+          handleNextClick={handleNextClick}
+        />
       </div>
       <CharactersTable characters={characters} term={term} />
     </div>
