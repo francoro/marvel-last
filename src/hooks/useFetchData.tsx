@@ -24,8 +24,8 @@ export const useFetchData = ({ id, offset, sortOrder }: IParams) => {
   const [characters, setCharacters] = useState<ICharacters[]>([]);
 
   useEffect(() => {
-    const publicKey = "f717810f469087e2a63c3970119bf808";
-    const privateKey = "a4d79206eb1ce7617143e61e24fe63c41a46e6a6";
+    const publicKey = process.env.REACT_APP_PUBLIC_KEY;
+    const privateKey = process.env.REACT_APP_PRIVATE_KEY ?? "";
     const ts = new Date().getTime();
     const stringToHash = ts + privateKey + publicKey;
     const hash = Md5.init(stringToHash);
