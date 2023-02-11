@@ -53,7 +53,17 @@ export const CharactersList = () => {
     <div>
       <div>
         <SearchInput onSearch={handleSearch} />
-        <Counter times={times} onCount={onCount} />
+        {/* Example of render props with useCallback maybe an overkill but wanted to have an example of render props XD */}
+        <Counter
+          onCount={onCount}
+          render={useCallback(
+            (times) => (
+              <span style={{ padding: "0px 15px" }}>Counter: {times}</span>
+            ),
+            []
+          )}
+          times={times}
+        />
         <Sort setSortOrder={onSort} sortOrder={sortOrder} />
       </div>
       <div>
