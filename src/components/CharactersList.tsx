@@ -1,11 +1,11 @@
 import { useCallback, useState, lazy, Suspense } from "react";
 import "../App.css";
 import { useFetchData } from "../hooks/useFetchData";
-//import  CharactersTable  from "./CharactersTable";
 import { Counter } from "./Counter";
 import { Pagination } from "./Pagination";
 import { SearchInput } from "./SearchInput";
 import { Sort } from "./Sort";
+import { TodoList } from "./TodoList/TodoList";
 
 const loadLazyComponent: any = () =>
   new Promise((resolve) => {
@@ -73,6 +73,8 @@ export const CharactersList = () => {
           handleNextClick={handleNextClick}
         />
       </div>
+      {/* add todo list CRUD */}
+      <TodoList />
       <Suspense fallback={<div style={{ background: "red" }}>Loading...</div>}>
         <CharactersTable characters={characters} term={term} />
       </Suspense>
