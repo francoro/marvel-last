@@ -5,6 +5,7 @@ import { useFetchData } from "../hooks/useFetchData";
 import { CharactersTable } from "./CharactersTable";
 import { Counter } from "./Counter";
 import { Pagination } from "./Pagination";
+import { SearchInput } from "./SearchInput";
 import { Sort } from "./Sort";
 
 export const CharactersList = () => {
@@ -17,9 +18,9 @@ export const CharactersList = () => {
 
   const { characters } = useFetchData({ offset, sortOrder });
 
-  const handleSearch = (term: string) => {
+  const handleSearch = useCallback((term: string) => {
     setTerm(term);
-  };
+  }, []);
 
   const handleNextClick = useCallback(() => {
     setOffset((prevOffset) => prevOffset + 10);
@@ -43,8 +44,7 @@ export const CharactersList = () => {
   return (
     <div>
       <div>
-        <h3>Search</h3>
-        <input type="text" onChange={(e) => handleSearch(e.target.value)} />
+        <SearchInput onSearch={handleSearch} />
         <Counter times={times} onCount={onCount} />
         <Sort setSortOrder={onSort} sortOrder={sortOrder} />
       </div>
