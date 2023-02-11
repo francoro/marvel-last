@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ICharacters } from "../hooks/useFetchData";
 
-interface IParams {
+export interface IParamsCharactersTable {
   characters: ICharacters[];
   term: string;
 }
-export const CharactersTable = React.memo(({ characters, term }: IParams) => {
+const CharactersTable = ({ characters, term }: IParamsCharactersTable) => {
   return (
     <table className="table-characters">
       <thead>
@@ -47,4 +47,6 @@ export const CharactersTable = React.memo(({ characters, term }: IParams) => {
       </tbody>
     </table>
   );
-});
+};
+
+export default React.memo(CharactersTable);

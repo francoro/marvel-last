@@ -8,7 +8,6 @@ interface IParams {
 
 export const Pagination = React.memo(
   ({ currentPage, handleNextClick, handlePrevClick }: IParams) => {
-    console.log("ENTRO PAGINATION");
     return (
       <>
         <button disabled={currentPage === 1} onClick={handlePrevClick}>

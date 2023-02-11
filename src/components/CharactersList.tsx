@@ -1,12 +1,20 @@
-import React from "react";
-import { useCallback, useState } from "react";
+import { useCallback, useState, lazy, Suspense } from "react";
 import "../App.css";
 import { useFetchData } from "../hooks/useFetchData";
-import { CharactersTable } from "./CharactersTable";
+//import  CharactersTable  from "./CharactersTable";
 import { Counter } from "./Counter";
 import { Pagination } from "./Pagination";
 import { SearchInput } from "./SearchInput";
 import { Sort } from "./Sort";
+
+const loadLazyComponent: any = () =>
+  new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(import("./CharactersTable"));
+    }, 1000);
+  });
+
+const CharactersTable = lazy(loadLazyComponent);
 
 export const CharactersList = () => {
   const [term, setTerm] = useState("");
@@ -55,7 +63,9 @@ export const CharactersList = () => {
           handleNextClick={handleNextClick}
         />
       </div>
-      <CharactersTable characters={characters} term={term} />
+      <Suspense fallback={<div style={{ background: "red" }}>Loading...</div>}>
+        <CharactersTable characters={characters} term={term} />
+      </Suspense>
     </div>
   );
 };
