@@ -28,7 +28,7 @@ export const TodoList = () => {
 
   const handleSubmit = () => {
     setTodos([...todos, { id: nextId, name: newTodo }]);
-    setNextId(nextId + 1);
+    setNextId((prevTodo) => prevTodo + 1);
     setNewTodo("");
   };
 
@@ -43,11 +43,7 @@ export const TodoList = () => {
     updatedTodoList.splice(index, 1);
     setTodos(updatedTodoList);
   };
-
-  //apreto update
-  //despues entro remove
-  //aparece save y en los otros update
-
+  console.log(todos);
   return (
     <>
       <div>
