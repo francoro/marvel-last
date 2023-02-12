@@ -22,7 +22,8 @@ const TODOS = [
 export const TodoList = () => {
   const [todos, setTodos] = useState(TODOS);
   const [nextId, setNextId] = useState(todos.length + 1);
-  const [idEnabledToEdit, setIdEnabledToEdit] = useState(-1);
+  //wanted to make sure to clarify the name
+  const [isSameIdThatTheOneSelected, setSameIdSelected] = useState(-1);
   const [isUpdatingRightNow, setIsUpdatingRightNow] = useState(false);
   const [newTodo, setNewTodo] = useState("");
 
@@ -43,7 +44,7 @@ export const TodoList = () => {
     updatedTodoList.splice(index, 1);
     setTodos(updatedTodoList);
   };
-  console.log(todos);
+
   return (
     <>
       <div>
@@ -53,6 +54,7 @@ export const TodoList = () => {
           onChange={(event) => setNewTodo(event.target.value)}
         />
         <button
+          disabled={newTodo === ""}
           onClick={() => {
             handleSubmit();
           }}
@@ -66,27 +68,28 @@ export const TodoList = () => {
             <div key={todo.id}>
               <input
                 type="text"
-                disabled={todo.id !== idEnabledToEdit}
+                disabled={todo.id !== isSameIdThatTheOneSelected}
                 value={todo.name}
                 onChange={(event) =>
                   handleTodoUpdate(index, event.target.value)
                 }
               />
-              {todo.id !== idEnabledToEdit && !isUpdatingRightNow && (
-                <button
-                  onClick={() => {
-                    setIsUpdatingRightNow(true);
-                    setIdEnabledToEdit(todo.id);
-                  }}
-                >
-                  UPDATE
-                </button>
-              )}
-              {todo.id === idEnabledToEdit && (
+              {todo.id !== isSameIdThatTheOneSelected &&
+                !isUpdatingRightNow && (
+                  <button
+                    onClick={() => {
+                      setIsUpdatingRightNow(true);
+                      setSameIdSelected(todo.id);
+                    }}
+                  >
+                    UPDATE
+                  </button>
+                )}
+              {todo.id === isSameIdThatTheOneSelected && (
                 <button
                   onClick={() => {
                     setIsUpdatingRightNow(false);
-                    setIdEnabledToEdit(-1);
+                    setSameIdSelected(-1);
                   }}
                 >
                   SAVE
@@ -95,7 +98,7 @@ export const TodoList = () => {
 
               <button
                 onClick={() => {
-                  if (todo.id === idEnabledToEdit) {
+                  if (todo.id === isSameIdThatTheOneSelected) {
                     setIsUpdatingRightNow(false);
                   }
                   handleRemoveButtonClick(index);
