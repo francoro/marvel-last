@@ -6,9 +6,9 @@ interface IParams {
 
 export const SearchInput = React.memo(({ onSearch }: IParams) => {
   return (
-    <>
-      <h3>Search</h3>
+    <div style={{ marginRight: "20px", marginBottom: "20px" }}>
+      <h3>Search on key up</h3>
       <input type="text" onChange={(e) => onSearch(e.target.value)} />
-    </>
+    </div>
   );
 });

@@ -9,8 +9,13 @@ interface IParams {
 export const Pagination = React.memo(
   ({ currentPage, handleNextClick, handlePrevClick }: IParams) => {
     return (
-      <>
-        <button disabled={currentPage === 1} onClick={handlePrevClick}>
+      <div style={{ marginTop: "20px", marginBottom: "20px" }}>
+        <h3>Pagination</h3>
+        <button
+          style={{ marginRight: "10px" }}
+          disabled={currentPage === 1}
+          onClick={handlePrevClick}
+        >
           Prev
           {currentPage}
         </button>
@@ -18,7 +23,7 @@ export const Pagination = React.memo(
           Next
           {currentPage + 1}
         </button>
-      </>
+      </div>
     );
   }
 );

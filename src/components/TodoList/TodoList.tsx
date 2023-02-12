@@ -47,13 +47,15 @@ export const TodoList = () => {
 
   return (
     <>
-      <div>
+      <h3>TODO List</h3>
+      <div style={{ marginTop: "20px", marginBottom: "20px" }}>
         <input
           type="text"
           value={newTodo}
           onChange={(event) => setNewTodo(event.target.value)}
         />
         <button
+          style={{ marginLeft: "10px" }}
           disabled={newTodo === ""}
           onClick={() => {
             handleSubmit();
@@ -62,10 +64,10 @@ export const TodoList = () => {
           Add Todo
         </button>
       </div>
-      <div style={{ marginTop: "20px" }}>
+      <div style={{ marginTop: "20px", marginBottom: "20px" }}>
         {todos.map((todo, index) => {
           return (
-            <div key={todo.id}>
+            <div key={todo.id} style={{ marginBottom: "5px" }}>
               <input
                 type="text"
                 disabled={todo.id !== isSameIdThatTheOneSelected}
@@ -77,6 +79,7 @@ export const TodoList = () => {
               {todo.id !== isSameIdThatTheOneSelected &&
                 !isUpdatingRightNow && (
                   <button
+                    style={{ marginRight: "10px", marginLeft: "10px" }}
                     onClick={() => {
                       setIsUpdatingRightNow(true);
                       setSameIdSelected(todo.id);
@@ -87,6 +90,7 @@ export const TodoList = () => {
                 )}
               {todo.id === isSameIdThatTheOneSelected && (
                 <button
+                  style={{ marginRight: "10px", marginLeft: "10px" }}
                   onClick={() => {
                     setIsUpdatingRightNow(false);
                     setSameIdSelected(-1);

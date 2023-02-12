@@ -8,7 +8,7 @@ interface IParams {
 export const Sort = React.memo(({ setSortOrder, sortOrder }: IParams) => {
   return (
     <button onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}>
-      Toggle sort order name {sortOrder}
+      Toggle sort order name {sortOrder} in table
     </button>
   );
 });

@@ -17,9 +17,6 @@ interface IParams {
   sortOrder?: string;
 }
 
-//modified since date picker
-//authentication
-
 export const useFetchData = ({ id, offset, sortOrder }: IParams) => {
   const [characters, setCharacters] = useState<ICharacters[]>([]);
 

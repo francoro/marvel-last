@@ -1,11 +1,13 @@
 import { useCallback, useState, lazy, Suspense } from "react";
 import "../App.css";
-import { useFetchData } from "../hooks/useFetchData";
+import { ICharacters, useFetchData } from "../hooks/useFetchData";
 import { Counter } from "./Counter";
 import { Pagination } from "./Pagination";
 import { SearchInput } from "./SearchInput";
 import { Sort } from "./Sort";
 import { TodoList } from "./TodoList/TodoList";
+
+import { useSelector, Provider, useDispatch } from "react-redux";
 
 const loadLazyComponent: any = () =>
   new Promise((resolve) => {
@@ -21,6 +23,8 @@ export const CharactersList = () => {
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [times, setTimes] = useState(0);
+
+  const dispatch = useDispatch();
 
   const [sortOrder, setSortOrder] = useState("asc");
 
@@ -49,6 +53,9 @@ export const CharactersList = () => {
     setSortOrder(order);
   }, []);
 
+  // pass to component list of characters names saga check re renders in component
+  // missing some fixes in types error in red files
+  const data = useSelector((state: any) => state.data.characters);
   return (
     <div>
       <div>
@@ -66,6 +73,7 @@ export const CharactersList = () => {
         />
         <Sort setSortOrder={onSort} sortOrder={sortOrder} />
       </div>
+
       <div>
         <Pagination
           currentPage={currentPage}
@@ -75,6 +83,15 @@ export const CharactersList = () => {
       </div>
       {/* add todo list CRUD */}
       <TodoList />
+
+      <button onClick={() => dispatch({ type: "FETCH_REQUEST" })}>
+        Get Characters Names By Redux Saga
+      </button>
+      <ul>
+        {data?.map((item: ICharacters) => (
+          <li key={item.id}>{item.name}</li>
+        ))}
+      </ul>
       <Suspense fallback={<div style={{ background: "red" }}>Loading...</div>}>
         <CharactersTable characters={characters} term={term} />
       </Suspense>
