@@ -1,12 +1,25 @@
-const initialState = {
-  data: [],
+import { ICharacters } from "../hooks/useFetchData";
+import { Action, AnyAction } from "redux";
+
+interface State {
+  data: { data: { characters: ICharacters[] } };
+  loading: boolean;
+  error: string | null;
+}
+
+const initialState: State = {
+  data: { data: { characters: [] } },
   loading: false,
   error: null,
 };
 
 const reducer = (
   state = initialState,
-  action: { type: string; error: any; payload: any }
+  action: {
+    data: { characters: ICharacters[] };
+    type: string;
+    error: string | null;
+  }
 ) => {
   switch (action.type) {
     case "FETCH_REQUEST":

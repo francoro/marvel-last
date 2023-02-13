@@ -1,5 +1,6 @@
 import { takeEvery, call, put } from "redux-saga/effects";
 import { Md5 } from "md5-typescript";
+import { ICharacters } from "../hooks/useFetchData";
 
 const fetchCharacters = async () => {
   const publicKey = process.env.REACT_APP_PUBLIC_KEY;
@@ -22,7 +23,7 @@ const fetchCharacters = async () => {
 
 function* fetchCharactersSaga() {
   try {
-    const characters = yield call(fetchCharacters);
+    const characters: Promise<ICharacters[]> = yield call(fetchCharacters);
     yield put({ type: "FETCH_SUCCESS", characters });
   } catch (error) {
     yield put({ type: "FETCH_ERROR", error });

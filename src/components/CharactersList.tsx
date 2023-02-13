@@ -7,7 +7,7 @@ import { SearchInput } from "./SearchInput";
 import { Sort } from "./Sort";
 import { TodoList } from "./TodoList/TodoList";
 
-import { useSelector, Provider, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const loadLazyComponent: any = () =>
   new Promise((resolve) => {

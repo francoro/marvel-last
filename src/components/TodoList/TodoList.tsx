@@ -22,7 +22,7 @@ const TODOS = [
 export const TodoList = () => {
   const [todos, setTodos] = useState(TODOS);
   const [nextId, setNextId] = useState(todos.length + 1);
-  //wanted to make sure to clarify the name
+  //wanted to clarify the name make sure it's understandable
   const [isSameIdThatTheOneSelected, setSameIdSelected] = useState(-1);
   const [isUpdatingRightNow, setIsUpdatingRightNow] = useState(false);
   const [newTodo, setNewTodo] = useState("");
