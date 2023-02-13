@@ -1,5 +1,2 @@
-# marvel-last
-
-My last code, I started this project: 2/10/23
-
-For now just JS nothing of CSS
+# Possible challenge for a React SR position
+This project contains code that could be possible evaluated in a SR code challenge and more
