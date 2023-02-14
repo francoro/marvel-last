@@ -29,3 +29,12 @@ table {
   th {
     background-color: lightgray;
   }
+
+  button {
+    cursor: pointer;
+  }
+
+  h3 {
+    text-decoration: underline;
+  }
+
