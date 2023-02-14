@@ -9,43 +9,34 @@ enum SquareColors {
   Yellow = "yellow",
   Black = "black",
   Grey = "grey",
+  Undefined = "undefined",
 }
-
-type Color =
-  | "red"
-  | "green"
-  | "blue"
-  | "purple"
-  | "yellow"
-  | "black"
-  | "grey"
-  | undefined;
 
 interface ITodos {
   id: number;
   name: string;
-  color: Color;
+  color: SquareColors;
 }
 const TODOS: ITodos[] = [
   {
     id: 1,
     name: "TODO 1",
-    color: "red",
+    color: SquareColors.Red,
   },
   {
     id: 2,
     name: "TODO 2",
-    color: "green",
+    color: SquareColors.Green,
   },
   {
     id: 3,
     name: "TODO 3",
-    color: "blue",
+    color: SquareColors.Blue,
   },
   {
     id: 4,
     name: "TODO 4",
-    color: "red",
+    color: SquareColors.Red,
   },
 ];
 
@@ -71,7 +62,9 @@ export const TodoList = () => {
   const [isSameIdThatTheOneSelected, setSameIdSelected] = useState(-1);
   const [isUpdatingRightNow, setIsUpdatingRightNow] = useState(false);
   const [newTodo, setNewTodo] = useState("");
-  const [colorSelectedName, setColorSelectedName] = useState<Color>(undefined);
+  const [colorSelectedName, setColorSelectedName] = useState<SquareColors>(
+    SquareColors.Undefined
+  );
 
   const squareColorsArray = Object.keys(SquareColors).map(
     (key) => SquareColors[key as keyof typeof SquareColors]
@@ -84,7 +77,7 @@ export const TodoList = () => {
     ]);
     setNextId((prevTodo) => prevTodo + 1);
     setNewTodo("");
-    setColorSelectedName(undefined);
+    setColorSelectedName(SquareColors.Undefined);
   };
 
   const handleTodoUpdate = (index: number, value: string) => {
@@ -99,12 +92,12 @@ export const TodoList = () => {
     setTodos(updatedTodoList);
   };
 
-  function assertNever(value: Color): never {
+  function assertNever(value: SquareColors): never {
     alert("Color not allowed, please choose another color");
     throw new Error(`Unexpected value: ${value}`);
   }
 
-  const handleSelectColor = (color: Color) => {
+  const handleSelectColor = (color: SquareColors) => {
     switch (color) {
       case "red":
         setColorSelectedName(color);
@@ -144,16 +137,18 @@ export const TodoList = () => {
         <h3>Choose a color, is required to add TODO</h3>
         <h5>*Only allowed red, blue and green</h5>
         <div style={{ display: "flex" }}>
-          {squareColorsArray.map((item) => {
-            return (
-              <SquareColor
-                key={item}
-                onClick={() => handleSelectColor(item)}
-                colorSelected={colorSelectedName}
-                actualColor={item}
-              />
-            );
-          })}
+          {squareColorsArray
+            .filter((item) => item !== SquareColors.Undefined)
+            .map((item) => {
+              return (
+                <SquareColor
+                  key={item}
+                  onClick={() => handleSelectColor(item)}
+                  colorSelected={colorSelectedName}
+                  actualColor={item}
+                />
+              );
+            })}
         </div>
       </div>
       <div style={{ marginTop: "20px", marginBottom: "20px" }}>
