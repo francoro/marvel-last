@@ -123,12 +123,6 @@ export const TodoList = () => {
     }
   };
 
-  const sharedStyleSquareColors = {
-    width: "50px",
-    height: "50px",
-    marginRight: "5px",
-  };
-
   return (
     <>
       <h3 style={{}}>TODO List</h3>
@@ -151,7 +145,6 @@ export const TodoList = () => {
         <h5>*Only allowed red, blue and green</h5>
         <div style={{ display: "flex" }}>
           {squareColorsArray.map((item) => {
-            console.log(item);
             return (
               <SquareColor
                 key={item}
