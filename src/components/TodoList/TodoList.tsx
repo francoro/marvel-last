@@ -1,21 +1,40 @@
 import { useState } from "react";
 
-const TODOS = [
+type COLOR =
+  | "red"
+  | "green"
+  | "blue"
+  | "purple"
+  | "yellow"
+  | "black"
+  | "grey"
+  | undefined;
+
+interface ITodos {
+  id: number;
+  name: string;
+  color: COLOR;
+}
+const TODOS: ITodos[] = [
   {
     id: 1,
     name: "TODO 1",
+    color: "red",
   },
   {
     id: 2,
     name: "TODO 2",
+    color: "green",
   },
   {
     id: 3,
     name: "TODO 3",
+    color: "blue",
   },
   {
     id: 4,
     name: "TODO 4",
+    color: "red",
   },
 ];
 
@@ -26,11 +45,16 @@ export const TodoList = () => {
   const [isSameIdThatTheOneSelected, setSameIdSelected] = useState(-1);
   const [isUpdatingRightNow, setIsUpdatingRightNow] = useState(false);
   const [newTodo, setNewTodo] = useState("");
+  const [colorSelectedName, setColorSelectedName] = useState<COLOR>(undefined);
 
   const handleSubmit = () => {
-    setTodos([...todos, { id: nextId, name: newTodo }]);
+    setTodos([
+      ...todos,
+      { id: nextId, name: newTodo, color: colorSelectedName },
+    ]);
     setNextId((prevTodo) => prevTodo + 1);
     setNewTodo("");
+    setColorSelectedName(undefined);
   };
 
   const handleTodoUpdate = (index: number, value: string) => {
@@ -45,9 +69,39 @@ export const TodoList = () => {
     setTodos(updatedTodoList);
   };
 
+  function assertNever(value: COLOR): never {
+    alert("Color not allowed, please choose another color");
+    throw new Error(`Unexpected value: ${value}`);
+  }
+
+  const handleSelectColor = (color: COLOR) => {
+    switch (color) {
+      case "red":
+        setColorSelectedName(color);
+        alert("Picked allowed color");
+        return;
+      case "green":
+        setColorSelectedName(color);
+        alert("Picked allowed color");
+        return;
+      case "blue":
+        setColorSelectedName(color);
+        alert("Picked allowed color");
+        return;
+      default:
+        return assertNever(color);
+    }
+  };
+
+  const sharedStyleSquareColors = {
+    width: "50px",
+    height: "50px",
+    marginRight: "5px",
+  };
+
   return (
     <>
-      <h3>TODO List</h3>
+      <h3 style={{}}>TODO List</h3>
       <div style={{ marginTop: "20px", marginBottom: "20px" }}>
         <input
           type="text"
@@ -56,13 +110,74 @@ export const TodoList = () => {
         />
         <button
           style={{ marginLeft: "10px" }}
-          disabled={newTodo === ""}
+          disabled={newTodo === "" || colorSelectedName === undefined}
           onClick={() => {
             handleSubmit();
           }}
         >
           Add Todo
         </button>
+        <h3>Choose a color, is required to add TODO</h3>
+        <h5>*Only allowed red, blue and green</h5>
+        <div style={{ display: "flex" }}>
+          <div
+            onClick={() => handleSelectColor("red")}
+            style={{
+              border: colorSelectedName === "red" ? "4px solid blue" : "",
+              background: "red",
+              ...sharedStyleSquareColors,
+            }}
+          ></div>
+          <div
+            onClick={() => handleSelectColor("purple")}
+            style={{
+              border: colorSelectedName === "purple" ? "4px solid blue" : "",
+              background: "purple",
+              ...sharedStyleSquareColors,
+            }}
+          ></div>
+          <div
+            onClick={() => handleSelectColor("green")}
+            style={{
+              border: colorSelectedName === "green" ? "4px solid blue" : "",
+              background: "green",
+              ...sharedStyleSquareColors,
+            }}
+          ></div>
+          <div
+            onClick={() => handleSelectColor("yellow")}
+            style={{
+              border: colorSelectedName === "yellow" ? "4px solid blue" : "",
+              background: "yellow",
+              ...sharedStyleSquareColors,
+            }}
+          ></div>
+          <div
+            onClick={() => handleSelectColor("grey")}
+            style={{
+              border: colorSelectedName === "grey" ? "4px solid blue" : "",
+              background: "grey",
+              ...sharedStyleSquareColors,
+            }}
+          ></div>
+          <div
+            onClick={() => handleSelectColor("black")}
+            style={{
+              border: colorSelectedName === "black" ? "4px solid blue" : "",
+              background: "black",
+              ...sharedStyleSquareColors,
+            }}
+          ></div>
+
+          <div
+            onClick={() => handleSelectColor("blue")}
+            style={{
+              border: colorSelectedName === "blue" ? "4px solid black" : "",
+              background: "blue",
+              ...sharedStyleSquareColors,
+            }}
+          ></div>
+        </div>
       </div>
       <div style={{ marginTop: "20px", marginBottom: "20px" }}>
         {todos.map((todo, index) => {
