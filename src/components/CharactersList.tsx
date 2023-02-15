@@ -1,4 +1,4 @@
-import { useCallback, useState, lazy, Suspense } from "react";
+import { useCallback, useState, lazy, Suspense, useContext } from "react";
 import "../App.css";
 import { ICharacters, useFetchData } from "../hooks/useFetchData";
 import { Counter } from "./Counter";
@@ -6,6 +6,7 @@ import { Pagination } from "./Pagination";
 import { SearchInput } from "./SearchInput";
 import { Sort } from "./Sort";
 import { TodoList } from "./TodoList/TodoList";
+import { ThemeContext } from "../App";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -19,6 +20,7 @@ const loadLazyComponent: any = () =>
 const CharactersTable = lazy(loadLazyComponent);
 
 export const CharactersList = () => {
+  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
   const [term, setTerm] = useState("");
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -53,14 +55,12 @@ export const CharactersList = () => {
     setSortOrder(order);
   }, []);
 
-  // pass to component list of characters names saga check re renders in component
-  // missing some fixes in types error in red files
   const data = useSelector((state: any) => state.data.characters);
   return (
-    <div>
+    <div className={darkMode ? "dark" : "light"}>
       <div>
         <SearchInput onSearch={handleSearch} />
-        {/* Example of render props with useCallback maybe an overkill but wanted to have an example of render props XD */}
+        {/* Example of render props with useCallback maybe an overkill but wanted to have an example of render props ha */}
         <Counter
           onCount={onCount}
           render={useCallback(
@@ -71,6 +71,10 @@ export const CharactersList = () => {
           )}
           times={times}
         />
+
+        <button onClick={toggleDarkMode} style={{ marginRight: "10px" }}>
+          {darkMode ? "Light Mode" : "Dark Mode"}
+        </button>
         <Sort setSortOrder={onSort} sortOrder={sortOrder} />
       </div>
 
@@ -81,7 +85,6 @@ export const CharactersList = () => {
           handleNextClick={handleNextClick}
         />
       </div>
-      {/* add todo list CRUD */}
       <TodoList />
 
       <button onClick={() => dispatch({ type: "FETCH_REQUEST" })}>
