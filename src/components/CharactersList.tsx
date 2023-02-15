@@ -20,6 +20,11 @@ const loadLazyComponent: any = () =>
 const CharactersTable = lazy(loadLazyComponent);
 
 export const CharactersList = () => {
+  //why does not re render toggleDarkMode the other components?
+  //when you destructure the context value using the useContext hook,
+  //only the properties that are destructure and the components that use them will be subscribed to updates
+  //from the context provider, and any sibling components that do not use those properties will not be affected
+  // and will not be re-rendered.
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
   const [term, setTerm] = useState("");
   const [offset, setOffset] = useState(0);
