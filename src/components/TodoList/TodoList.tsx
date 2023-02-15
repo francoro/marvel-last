@@ -3,7 +3,9 @@ import styled from "styled-components";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-
+import EditIcon from "@mui/icons-material/Edit";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import SaveIcon from "@mui/icons-material/Save";
 enum SquareColors {
   Red = "red",
   Green = "green",
@@ -187,30 +189,31 @@ export const TodoList = () => {
                 !isUpdatingRightNow && (
                   <Button
                     variant="outlined"
-                    style={{ marginRight: "10px", marginLeft: "10px" }}
+                    sx={{ mr: 1, ml: 1 }}
                     onClick={() => {
                       setIsUpdatingRightNow(true);
                       setSameIdSelected(todo.id);
                     }}
                   >
-                    UPDATE
+                    <EditIcon />
                   </Button>
                 )}
               {todo.id === isSameIdThatTheOneSelected && (
                 <Button
                   variant="outlined"
-                  style={{ marginRight: "10px", marginLeft: "10px" }}
+                  sx={{ marginRight: "10px", marginLeft: "10px" }}
                   onClick={() => {
                     setIsUpdatingRightNow(false);
                     setSameIdSelected(-1);
                   }}
                 >
-                  SAVE
+                  <SaveIcon />
                 </Button>
               )}
 
               <Button
                 variant="outlined"
+                sx={{ mr: 1, ml: 1 }}
                 onClick={() => {
                   if (todo.id === isSameIdThatTheOneSelected) {
                     setIsUpdatingRightNow(false);
@@ -218,7 +221,7 @@ export const TodoList = () => {
                   handleRemoveButtonClick(index);
                 }}
               >
-                REMOVE
+                <RemoveCircleIcon />
               </Button>
             </div>
           );
