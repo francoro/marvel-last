@@ -92,9 +92,12 @@ export const CharactersList = () => {
 
       <TodoList />
 
-      <button onClick={() => dispatch({ type: "FETCH_REQUEST" })}>
+      <Button
+        variant="outlined"
+        onClick={() => dispatch({ type: "FETCH_REQUEST" })}
+      >
         Get Characters Names By Redux Saga
-      </button>
+      </Button>
       <ul>
         {data?.map((item: ICharacters) => (
           <li key={item.id}>{item.name}</li>

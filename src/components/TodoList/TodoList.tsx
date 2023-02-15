@@ -56,6 +56,7 @@ const SquareColor = styled.button<SquareColorProps>`
   height: 50px;
   margin-right: 5px;
   cursor: pointer;
+  border-radius: 6px;
 `;
 
 export const TodoList = () => {
@@ -121,12 +122,16 @@ export const TodoList = () => {
 
   return (
     <>
-      <Typography mt={1} variant="h6">
-        TODO List
+      <Typography mt={2} mb={1} variant="h6">
+        New Todo
       </Typography>
-      <div style={{ marginTop: "20px", marginBottom: "20px" }}>
+      <div>
         <TextField
-          size="small"
+          sx={{
+            ".MuiInputBase-input": {
+              height: "0px",
+            },
+          }}
           type="text"
           value={newTodo}
           onChange={(event) => setNewTodo(event.target.value)}
@@ -134,7 +139,7 @@ export const TodoList = () => {
         <Button
           sx={{ ml: 2 }}
           variant="contained"
-          size="large"
+          size="small"
           disabled={newTodo === "" || colorSelectedName === undefined}
           onClick={() => {
             handleSubmit();
@@ -142,7 +147,7 @@ export const TodoList = () => {
         >
           Add Todo
         </Button>
-        <h3>Choose a color, is required to add TODO</h3>
+        <h3>Choose a color, is required to add a TODO</h3>
         <h5>*Only allowed red, blue and green</h5>
         <div style={{ display: "flex" }}>
           {squareColorsArray
@@ -159,12 +164,19 @@ export const TodoList = () => {
             })}
         </div>
       </div>
+      <Typography mt={1} variant="h6">
+        TODO List
+      </Typography>
       <div style={{ marginTop: "20px", marginBottom: "20px" }}>
         {todos.map((todo, index) => {
           return (
             <div key={todo.id} style={{ marginBottom: "5px" }}>
-              <input
-                type="text"
+              <TextField
+                sx={{
+                  ".MuiInputBase-input": {
+                    height: "0px",
+                  },
+                }}
                 disabled={todo.id !== isSameIdThatTheOneSelected}
                 value={todo.name}
                 onChange={(event) =>
@@ -173,7 +185,8 @@ export const TodoList = () => {
               />
               {todo.id !== isSameIdThatTheOneSelected &&
                 !isUpdatingRightNow && (
-                  <button
+                  <Button
+                    variant="outlined"
                     style={{ marginRight: "10px", marginLeft: "10px" }}
                     onClick={() => {
                       setIsUpdatingRightNow(true);
@@ -181,10 +194,11 @@ export const TodoList = () => {
                     }}
                   >
                     UPDATE
-                  </button>
+                  </Button>
                 )}
               {todo.id === isSameIdThatTheOneSelected && (
-                <button
+                <Button
+                  variant="outlined"
                   style={{ marginRight: "10px", marginLeft: "10px" }}
                   onClick={() => {
                     setIsUpdatingRightNow(false);
@@ -192,10 +206,11 @@ export const TodoList = () => {
                   }}
                 >
                   SAVE
-                </button>
+                </Button>
               )}
 
-              <button
+              <Button
+                variant="outlined"
                 onClick={() => {
                   if (todo.id === isSameIdThatTheOneSelected) {
                     setIsUpdatingRightNow(false);
@@ -204,7 +219,7 @@ export const TodoList = () => {
                 }}
               >
                 REMOVE
-              </button>
+              </Button>
             </div>
           );
         })}
