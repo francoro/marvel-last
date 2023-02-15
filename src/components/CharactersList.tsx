@@ -55,7 +55,9 @@ export const CharactersList = () => {
     setSortOrder(order);
   }, []);
 
-  const data = useSelector((state: any) => state.data.characters);
+  const data = useSelector(
+    (state: { data: { characters: ICharacters[] } }) => state.data.characters
+  );
   return (
     <div className={darkMode ? "dark" : "light"}>
       <div>
