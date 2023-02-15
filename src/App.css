@@ -1,3 +1,6 @@
+body {
+  font-family: Roboto;
+}
 .wrapper-character {
     display: flex;
     margin: 10px;
@@ -32,10 +35,6 @@ table {
 
   button {
     cursor: pointer;
-  }
-
-  h3 {
-    text-decoration: underline;
   }
 
   .dark {

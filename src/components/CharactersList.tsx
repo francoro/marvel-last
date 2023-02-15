@@ -7,6 +7,10 @@ import { SearchInput } from "./SearchInput";
 import { Sort } from "./Sort";
 import { TodoList } from "./TodoList/TodoList";
 import { ThemeContext } from "../App";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -20,11 +24,6 @@ const loadLazyComponent: any = () =>
 const CharactersTable = lazy(loadLazyComponent);
 
 export const CharactersList = () => {
-  //why does not re render toggleDarkMode the other components?
-  //when you destructure the context value using the useContext hook,
-  //only the properties that are destructure and the components that use them will be subscribed to updates
-  //from the context provider, and any sibling components that do not use those properties will not be affected
-  // and will not be re-rendered.
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
   const [term, setTerm] = useState("");
   const [offset, setOffset] = useState(0);
@@ -66,32 +65,31 @@ export const CharactersList = () => {
   return (
     <div className={darkMode ? "dark" : "light"}>
       <div>
-        <SearchInput onSearch={handleSearch} />
-        {/* Example of render props with useCallback maybe an overkill but wanted to have an example of render props ha */}
-        <Counter
-          onCount={onCount}
-          render={useCallback(
-            (times) => (
-              <span style={{ padding: "0px 15px" }}>Counter: {times}</span>
-            ),
-            []
-          )}
-          times={times}
-        />
-
-        <button onClick={toggleDarkMode} style={{ marginRight: "10px" }}>
-          {darkMode ? "Light Mode" : "Dark Mode"}
-        </button>
-        <Sort setSortOrder={onSort} sortOrder={sortOrder} />
+        <Stack>
+          <SearchInput onSearch={handleSearch} />
+          {/* Example of render props with useCallback maybe an overkill but wanted to have an example of render props ha */}
+        </Stack>
+        <Stack direction={"row"} alignItems={"center"}>
+          <Counter
+            onCount={onCount}
+            render={useCallback(
+              (times) => (
+                <Typography variant="h6" mx={1}>
+                  Times: {times}
+                </Typography>
+              ),
+              []
+            )}
+            times={times}
+          />
+          <Box mr={0.8}>
+            <Button size="small" variant="contained" onClick={toggleDarkMode}>
+              {darkMode ? "Light Mode" : "Dark Mode"}
+            </Button>
+          </Box>
+        </Stack>
       </div>
 
-      <div>
-        <Pagination
-          currentPage={currentPage}
-          handlePrevClick={handlePrevClick}
-          handleNextClick={handleNextClick}
-        />
-      </div>
       <TodoList />
 
       <button onClick={() => dispatch({ type: "FETCH_REQUEST" })}>
@@ -102,6 +100,14 @@ export const CharactersList = () => {
           <li key={item.id}>{item.name}</li>
         ))}
       </ul>
+      <Sort setSortOrder={onSort} sortOrder={sortOrder} />
+      <div>
+        <Pagination
+          currentPage={currentPage}
+          handlePrevClick={handlePrevClick}
+          handleNextClick={handleNextClick}
+        />
+      </div>
       <Suspense fallback={<div style={{ background: "red" }}>Loading...</div>}>
         <CharactersTable characters={characters} term={term} />
       </Suspense>

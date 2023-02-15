@@ -10,7 +10,14 @@
     "preinstall": "npx npm-force-resolutions"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.11.9",
+    "@mui/material": "^5.11.9",
+    "@mui/styled-engine-sc": "^5.11.9",
     "@reduxjs/toolkit": "1.9.2",
+    "@types/material-ui": "^0.21.12",
     "@types/node": "^18.13.0",
     "md5-typescript": "^1.0.5",
     "react": "^18.2.0",

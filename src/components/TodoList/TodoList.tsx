@@ -1,5 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 enum SquareColors {
   Red = "red",
@@ -118,22 +121,27 @@ export const TodoList = () => {
 
   return (
     <>
-      <h3 style={{}}>TODO List</h3>
+      <Typography mt={1} variant="h6">
+        TODO List
+      </Typography>
       <div style={{ marginTop: "20px", marginBottom: "20px" }}>
-        <input
+        <TextField
+          size="small"
           type="text"
           value={newTodo}
           onChange={(event) => setNewTodo(event.target.value)}
         />
-        <button
-          style={{ marginLeft: "10px" }}
+        <Button
+          sx={{ ml: 2 }}
+          variant="contained"
+          size="large"
           disabled={newTodo === "" || colorSelectedName === undefined}
           onClick={() => {
             handleSubmit();
           }}
         >
           Add Todo
-        </button>
+        </Button>
         <h3>Choose a color, is required to add TODO</h3>
         <h5>*Only allowed red, blue and green</h5>
         <div style={{ display: "flex" }}>

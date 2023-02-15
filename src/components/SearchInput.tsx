@@ -1,4 +1,6 @@
 import React from "react";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 
 interface IParams {
   onSearch: (term: string) => void;
@@ -7,8 +9,15 @@ interface IParams {
 export const SearchInput = React.memo(({ onSearch }: IParams) => {
   return (
     <div style={{ marginRight: "20px", marginBottom: "20px" }}>
-      <h3>Search on key up</h3>
-      <input type="text" onChange={(e) => onSearch(e.target.value)} />
+      <Typography variant="h5" mb={2}>
+        Filter by name
+      </Typography>
+      <TextField
+        onChange={(e) => onSearch(e.target.value)}
+        label="Filter on key up"
+        variant="outlined"
+        size="small"
+      />
     </div>
   );
 });

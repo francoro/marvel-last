@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "@mui/material/Button";
 
 interface IParams {
   onCount: (times: number) => void;
@@ -9,7 +10,13 @@ interface IParams {
 export const Counter = React.memo(({ times, onCount, render }: IParams) => {
   return (
     <>
-      <button onClick={() => onCount(times + 1)}>Count</button>
+      <Button
+        size="small"
+        variant="contained"
+        onClick={() => onCount(times + 1)}
+      >
+        Count
+      </Button>
       {render(times)}
     </>
   );

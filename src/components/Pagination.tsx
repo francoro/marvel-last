@@ -1,4 +1,8 @@
 import React from "react";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 
 interface IParams {
   currentPage: number;
@@ -9,21 +13,27 @@ interface IParams {
 export const Pagination = React.memo(
   ({ currentPage, handleNextClick, handlePrevClick }: IParams) => {
     return (
-      <div style={{ marginTop: "20px", marginBottom: "20px" }}>
-        <h3>Pagination</h3>
-        <button
-          style={{ marginRight: "10px" }}
-          disabled={currentPage === 1}
-          onClick={handlePrevClick}
-        >
-          Prev
-          {currentPage}
-        </button>
-        <button onClick={handleNextClick}>
-          Next
-          {currentPage + 1}
-        </button>
-      </div>
+      <>
+        <Typography variant="h5">Pagination</Typography>
+        <Stack my={2} direction="row" alignItems={"center"}>
+          <Stack mr={1} direction="row" justifyContent="center">
+            <Button
+              variant="outlined"
+              style={{ marginRight: "10px" }}
+              disabled={currentPage === 1}
+              onClick={handlePrevClick}
+            >
+              Prev <Box ml={1}>{currentPage}</Box>
+            </Button>
+          </Stack>
+
+          <Stack mr={1} direction="row" justifyContent="center">
+            <Button variant="outlined" onClick={handleNextClick}>
+              Next <Box ml={1}>{currentPage + 1}</Box>
+            </Button>
+          </Stack>
+        </Stack>
+      </>
     );
   }
 );
