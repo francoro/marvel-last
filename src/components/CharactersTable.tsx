@@ -54,6 +54,7 @@ const CharactersTable = ({ characters, term }: IParamsCharactersTable) => {
                       <Typography style={{ margin: 0 }}>
                         {item.description === "" ? (
                           <Typography
+                            variant="body1"
                             sx={{ fontStyle: "italic", color: "grey" }}
                           >
                             No description

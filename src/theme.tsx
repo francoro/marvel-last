@@ -27,7 +27,7 @@ export const themeMUI = createTheme({
       fontSize: "1.2rem",
     },
     body1: {
-      fontSize: "1.1rem",
+      fontSize: "1rem",
       lineHeight: 1.5,
     },
   },

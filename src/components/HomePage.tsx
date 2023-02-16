@@ -119,9 +119,11 @@ export const HomePage = () => {
           handleNextClick={handleNextClick}
         />
       </div>
-      <Suspense fallback={<div style={{ background: "red" }}>Loading...</div>}>
-        <CharactersTable characters={characters} term={term} />
-      </Suspense>
+      <Stack justifyContent={"center"} alignItems="center">
+        <Suspense fallback={<div className="loading-spinner"></div>}>
+          <CharactersTable characters={characters} term={term} />
+        </Suspense>
+      </Stack>
     </div>
   );
 };
