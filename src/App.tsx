@@ -3,9 +3,9 @@ import { DetailPage } from "./components/DetailPage";
 import { Provider } from "react-redux";
 import store from "./store";
 import { createContext, useState } from "react";
-
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import { themeMUI } from "./theme";
 interface ThemeContextType {
   darkMode: boolean;
   toggleDarkMode: () => void;
@@ -28,16 +28,18 @@ function App() {
     toggleDarkMode,
   };
   return (
-    <Provider store={store}>
-      <ThemeContext.Provider value={theme}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/characters" element={<HomePage />}></Route>
-            <Route path="/character/:id" element={<DetailPage />}></Route>
-          </Routes>
-        </BrowserRouter>
-      </ThemeContext.Provider>
-    </Provider>
+    <ThemeProvider theme={themeMUI}>
+      <Provider store={store}>
+        <ThemeContext.Provider value={theme}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/characters" element={<HomePage />}></Route>
+              <Route path="/character/:id" element={<DetailPage />}></Route>
+            </Routes>
+          </BrowserRouter>
+        </ThemeContext.Provider>
+      </Provider>
+    </ThemeProvider>
   );
 }
 
