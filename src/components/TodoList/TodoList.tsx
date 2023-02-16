@@ -6,6 +6,10 @@ import TextField from "@mui/material/TextField";
 import EditIcon from "@mui/icons-material/Edit";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import SaveIcon from "@mui/icons-material/Save";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
 enum SquareColors {
   Red = "red",
   Green = "green",
@@ -62,6 +66,7 @@ const SquareColor = styled.button<SquareColorProps>`
 `;
 
 export const TodoList = () => {
+  const [isOpenColorModal, setOpenColorModal] = useState(false);
   const [todos, setTodos] = useState(TODOS);
   const [nextId, setNextId] = useState(todos.length + 1);
   //wanted to clarify the name make sure it's understandable
@@ -71,7 +76,11 @@ export const TodoList = () => {
   const [colorSelectedName, setColorSelectedName] = useState<SquareColors>(
     SquareColors.Undefined
   );
+  const [isNotAllowedColor, setIsNotAllowedColor] = useState<
+    undefined | boolean
+  >(undefined);
 
+  //useMemo? or outside component
   const squareColorsArray = Object.keys(SquareColors).map(
     (key) => SquareColors[key as keyof typeof SquareColors]
   );
@@ -99,23 +108,26 @@ export const TodoList = () => {
   };
 
   function assertNever(value: SquareColors): never {
-    alert("Color not allowed, please choose another color");
+    setIsNotAllowedColor(true);
+    setOpenColorModal(true);
     throw new Error(`Unexpected value: ${value}`);
   }
 
   const handleSelectColor = (color: SquareColors) => {
+    setIsNotAllowedColor(false);
+
     switch (color) {
       case "red":
         setColorSelectedName(color);
-        alert("Picked allowed color");
+        setOpenColorModal(true);
         return;
       case "green":
         setColorSelectedName(color);
-        alert("Picked allowed color");
+        setOpenColorModal(true);
         return;
       case "blue":
         setColorSelectedName(color);
-        alert("Picked allowed color");
+        setOpenColorModal(true);
         return;
       default:
         return assertNever(color);
@@ -166,7 +178,7 @@ export const TodoList = () => {
             })}
         </div>
       </div>
-      <Typography mt={1} variant="h6">
+      <Typography id="dialog-title" mt={1} variant="h6">
         TODO List
       </Typography>
       <div style={{ marginTop: "20px", marginBottom: "20px" }}>
@@ -227,6 +239,24 @@ export const TodoList = () => {
           );
         })}
       </div>
+      <Dialog
+        open={isOpenColorModal}
+        onClose={() => setOpenColorModal(false)}
+        aria-labelledby="dialog-title"
+      >
+        <DialogContent>
+          <DialogContentText>
+            {isNotAllowedColor
+              ? "Color not allowed, please choose another."
+              : "Color selected!"}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={() => setOpenColorModal(false)}>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
