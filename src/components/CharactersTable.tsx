@@ -10,6 +10,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import { Typography } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 export interface IParamsCharactersTable {
   characters: ICharacters[];
   term: string;
@@ -38,7 +40,7 @@ const CharactersTable = ({ characters, term }: IParamsCharactersTable) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Fav</TableCell>
+            <TableCell></TableCell>
             <TableCell>Image</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Description</TableCell>
@@ -57,14 +59,16 @@ const CharactersTable = ({ characters, term }: IParamsCharactersTable) => {
               return (
                 <TableRow key={item.id}>
                   <TableCell>
-                    <button
-                      onClick={() => handleFavoriteToggle(item.id)}
-                      style={{
-                        color: favorites.includes(item.id) ? "red" : "gray",
-                      }}
-                    >
-                      Favorite
-                    </button>
+                    {favorites.includes(item.id) ? (
+                      <FavoriteIcon
+                        onClick={() => handleFavoriteToggle(item.id)}
+                        color={"error"}
+                      />
+                    ) : (
+                      <FavoriteBorderIcon
+                        onClick={() => handleFavoriteToggle(item.id)}
+                      />
+                    )}
                   </TableCell>
                   <TableCell>
                     <img
