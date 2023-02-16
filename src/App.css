@@ -16,23 +16,13 @@ body {
 
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
+a:visited {
+  color: blue;
+}
 
-  th, td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: left;
-    vertical-align: top;
-  }
-
-  th {
-    background-color: lightgray;
-  }
-
+a {
+  text-decoration: underline;
+}
   button {
     cursor: pointer;
   }
