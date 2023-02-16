@@ -1,4 +1,11 @@
-import { useCallback, useState, lazy, Suspense, useContext } from "react";
+import {
+  useCallback,
+  useState,
+  lazy,
+  Suspense,
+  useContext,
+  ComponentType,
+} from "react";
 import "../App.css";
 import { ICharacters, useFetchData } from "../hooks/useFetchData";
 import { Counter } from "./Counter";
@@ -13,9 +20,10 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
 import { useSelector, useDispatch } from "react-redux";
+import { IParamsCharactersTable } from "./CharactersTable";
 
-const loadLazyComponent: any = () =>
-  new Promise((resolve) => {
+const loadLazyComponent = () =>
+  new Promise<{ default: ComponentType<IParamsCharactersTable> }>((resolve) => {
     setTimeout(() => {
       resolve(import("./CharactersTable"));
     }, 1000);
@@ -23,7 +31,7 @@ const loadLazyComponent: any = () =>
 
 const CharactersTable = lazy(loadLazyComponent);
 
-export const CharactersList = () => {
+export const HomePage = () => {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
   const [term, setTerm] = useState("");
   const [offset, setOffset] = useState(0);

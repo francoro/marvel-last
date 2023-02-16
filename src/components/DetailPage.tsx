@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useFetchData } from "../hooks/useFetchData";
 
-export const Character = () => {
+export const DetailPage = () => {
   let { id } = useParams();
   const { characters } = useFetchData({ id });
 

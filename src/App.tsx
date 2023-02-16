@@ -1,5 +1,5 @@
-import { CharactersList } from "./components/CharactersList";
-import { Character } from "./components/Character";
+import { HomePage } from "./components/HomePage";
+import { DetailPage } from "./components/DetailPage";
 import { Provider } from "react-redux";
 import store from "./store";
 import { createContext, useState } from "react";
@@ -32,8 +32,8 @@ function App() {
       <ThemeContext.Provider value={theme}>
         <BrowserRouter>
           <Routes>
-            <Route path="/characters" element={<CharactersList />}></Route>
-            <Route path="/character/:id" element={<Character />}></Route>
+            <Route path="/characters" element={<HomePage />}></Route>
+            <Route path="/character/:id" element={<DetailPage />}></Route>
           </Routes>
         </BrowserRouter>
       </ThemeContext.Provider>
