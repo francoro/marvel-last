@@ -5,6 +5,7 @@ import {
   Suspense,
   useContext,
   ComponentType,
+  useEffect,
 } from "react";
 import "../App.css";
 import { ICharacters, useFetchData } from "../hooks/useFetchData";

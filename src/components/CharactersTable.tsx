@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ICharacters } from "../hooks/useFetchData";
 import Table from "@mui/material/Table";
@@ -15,11 +15,30 @@ export interface IParamsCharactersTable {
   term: string;
 }
 const CharactersTable = ({ characters, term }: IParamsCharactersTable) => {
+  const savedFavorites = localStorage.getItem("favorites");
+  const initialFavorites = savedFavorites ? JSON.parse(savedFavorites) : [];
+
+  const [favorites, setFavorites] = useState(initialFavorites);
+
+  const handleFavoriteToggle = (itemId: number) => {
+    const index = favorites.indexOf(itemId);
+    if (index === -1) {
+      setFavorites([...favorites, itemId]);
+    } else {
+      setFavorites(favorites.filter((id: number) => id !== itemId));
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
   return (
     <TableContainer component={Paper}>
       <Table>
         <TableHead>
           <TableRow>
+            <TableCell>Fav</TableCell>
             <TableCell>Image</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Description</TableCell>
@@ -37,6 +56,16 @@ const CharactersTable = ({ characters, term }: IParamsCharactersTable) => {
             .map((item) => {
               return (
                 <TableRow key={item.id}>
+                  <TableCell>
+                    <button
+                      onClick={() => handleFavoriteToggle(item.id)}
+                      style={{
+                        color: favorites.includes(item.id) ? "red" : "gray",
+                      }}
+                    >
+                      Favorite
+                    </button>
+                  </TableCell>
                   <TableCell>
                     <img
                       src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
