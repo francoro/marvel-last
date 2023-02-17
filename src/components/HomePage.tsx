@@ -12,7 +12,6 @@ import { ICharacters, useFetchData } from "../hooks/useFetchData";
 import { Counter } from "./Counter";
 import { Pagination } from "./Pagination";
 import { SearchInput } from "./SearchInput";
-import { Sort } from "./Sort";
 import { TodoList } from "./TodoList/TodoList";
 import { ThemeContext } from "../App";
 import Button from "@mui/material/Button";
@@ -22,6 +21,7 @@ import Typography from "@mui/material/Typography";
 
 import { useSelector, useDispatch } from "react-redux";
 import { IParamsCharactersTable } from "./CharactersTable";
+import { SortTableHeader } from "./SortTableHeader";
 
 const loadLazyComponent = () =>
   new Promise<{ default: ComponentType<IParamsCharactersTable> }>((resolve) => {
@@ -34,14 +34,14 @@ const CharactersTable = lazy(loadLazyComponent);
 
 export const HomePage = () => {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc" | undefined>("asc");
+
   const [term, setTerm] = useState("");
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [times, setTimes] = useState(0);
 
   const dispatch = useDispatch();
-
-  const [sortOrder, setSortOrder] = useState("asc");
 
   const { characters } = useFetchData({ offset, sortOrder });
 
@@ -64,13 +64,21 @@ export const HomePage = () => {
     setTimes(times);
   }, []);
 
-  const onSort = useCallback((order: string) => {
-    setSortOrder(order);
-  }, []);
+  const onSort = useCallback(
+    (order: "asc" | "desc" | undefined) => {
+      setSortOrder(order);
+    },
+    [sortOrder]
+  );
 
   const data = useSelector(
     (state: { data: { characters: ICharacters[] } }) => state.data.characters
   );
+
+  const SortTableHeaderComponent = (
+    <SortTableHeader onSort={onSort} sortOrder={sortOrder} />
+  );
+
   return (
     <div className={darkMode ? "dark" : "light"}>
       <div>
@@ -112,7 +120,6 @@ export const HomePage = () => {
           <li key={item.id}>{item.name}</li>
         ))}
       </ul>
-      <Sort setSortOrder={onSort} sortOrder={sortOrder} />
       <div>
         <Pagination
           currentPage={currentPage}
@@ -122,7 +129,11 @@ export const HomePage = () => {
       </div>
       <Stack justifyContent={"center"} alignItems="center">
         <Suspense fallback={<div className="loading-spinner"></div>}>
-          <CharactersTable characters={characters} term={term} />
+          <CharactersTable
+            characters={characters}
+            term={term}
+            sortComponent={SortTableHeaderComponent}
+          />
         </Suspense>
       </Stack>
     </div>
