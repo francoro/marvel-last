@@ -15,11 +15,17 @@ interface IParams {
   id?: string;
   offset?: number;
   sortOrder?: string;
+  rowsPerPage?: number;
 }
 
-export const useFetchData = ({ id, offset, sortOrder }: IParams) => {
+export const useFetchData = ({
+  id,
+  offset,
+  sortOrder,
+  rowsPerPage,
+}: IParams) => {
   const [characters, setCharacters] = useState<ICharacters[]>([]);
-
+  const [totalPages, setTotalPages] = useState<number>();
   useEffect(() => {
     const publicKey = process.env.REACT_APP_PUBLIC_KEY;
     const privateKey = process.env.REACT_APP_PRIVATE_KEY ?? "";
@@ -32,13 +38,18 @@ export const useFetchData = ({ id, offset, sortOrder }: IParams) => {
     if (id) {
       url = `http://gateway.marvel.com/v1/public/characters/${id}?ts=${ts}&apikey=${publicKey}&hash=${hash}`;
     } else {
-      url = `http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}&offset=${offset}&limit=10`;
+      url = `http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}&offset=${offset}&limit=${rowsPerPage}`;
     }
 
     fetch(url)
       .then((response) => response.json())
-      .then((data) => setCharacters(data.data.results));
-  }, [offset]);
+      .then((data) => {
+        const totalCharacters = data.data.total;
+        const totalPages = Math.ceil(totalCharacters / 10);
+        setTotalPages(totalPages);
+        setCharacters(data.data.results);
+      });
+  }, [offset, rowsPerPage]);
 
   useMemo(() => {
     const charactersSorted =
@@ -49,5 +60,5 @@ export const useFetchData = ({ id, offset, sortOrder }: IParams) => {
     setCharacters(charactersSorted);
   }, [sortOrder]);
 
-  return { characters };
+  return { characters, totalPages };
 };

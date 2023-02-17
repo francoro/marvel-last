@@ -5,12 +5,10 @@ import {
   Suspense,
   useContext,
   ComponentType,
-  useEffect,
 } from "react";
 import "../App.css";
 import { ICharacters, useFetchData } from "../hooks/useFetchData";
 import { Counter } from "./Counter";
-import { Pagination } from "./Pagination";
 import { SearchInput } from "./SearchInput";
 import { TodoList } from "./TodoList/TodoList";
 import { ThemeContext } from "../App";
@@ -38,27 +36,38 @@ export const HomePage = () => {
 
   const [term, setTerm] = useState("");
   const [offset, setOffset] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
   const [times, setTimes] = useState(0);
 
   const dispatch = useDispatch();
 
-  const { characters } = useFetchData({ offset, sortOrder });
+  const { characters, totalPages } = useFetchData({
+    offset,
+    sortOrder,
+    rowsPerPage,
+  });
 
   const handleSearch = useCallback((term: string) => {
     setTerm(term);
   }, []);
 
-  const handleNextClick = useCallback(() => {
-    setOffset((prevOffset) => prevOffset + 10);
-    setCurrentPage((nextCurrentPage) => nextCurrentPage + 1);
-  }, []);
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+  };
 
-  const handlePrevClick = useCallback(() => {
-    if (offset === 0) return;
-    setOffset((prevOffset) => prevOffset - 10);
-    setCurrentPage((prevCurrentPage) => prevCurrentPage - 1);
-  }, [offset]);
+  const handleChangePage = (event: unknown, newPage: number) => {
+    if (currentPage === 0 && newPage === 0) return;
+    if (currentPage > newPage) {
+      setOffset((prevOffset) => prevOffset - rowsPerPage);
+    } else {
+      setOffset((prevOffset) => prevOffset + rowsPerPage);
+    }
+    setCurrentPage(newPage);
+  };
 
   const onCount = useCallback((times: number) => {
     setTimes(times);
@@ -120,19 +129,17 @@ export const HomePage = () => {
           <li key={item.id}>{item.name}</li>
         ))}
       </ul>
-      <div>
-        <Pagination
-          currentPage={currentPage}
-          handlePrevClick={handlePrevClick}
-          handleNextClick={handleNextClick}
-        />
-      </div>
       <Stack justifyContent={"center"} alignItems="center">
         <Suspense fallback={<div className="loading-spinner"></div>}>
           <CharactersTable
+            currentPage={currentPage}
             characters={characters}
             term={term}
+            handleChangePage={handleChangePage}
             sortComponent={SortTableHeaderComponent}
+            rowsPerPage={rowsPerPage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+            totalPages={totalPages}
           />
         </Suspense>
       </Stack>

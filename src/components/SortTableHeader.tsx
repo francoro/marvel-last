@@ -10,6 +10,7 @@ export const SortTableHeader = React.memo(
   ({ onSort, sortOrder }: IParamsSortTableHeader) => {
     return (
       <TableSortLabel
+        active={true}
         direction={sortOrder}
         onClick={() => onSort(sortOrder === "asc" ? "desc" : "asc")}
       >
