@@ -1,17 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Md5 } from "md5-typescript";
+import { ICharacters } from "../models";
 
-export interface ICharacters {
-  name: string;
-  id: number;
-  description: string;
-  thumbnail: {
-    path: string;
-    extension: string;
-  };
-}
-
-interface IParams {
+interface IParamsFetchData {
   id?: string;
   offset?: number;
   sortOrder?: string;
@@ -23,7 +14,7 @@ export const useFetchData = ({
   offset,
   sortOrder,
   rowsPerPage,
-}: IParams) => {
+}: IParamsFetchData) => {
   const [characters, setCharacters] = useState<ICharacters[]>([]);
   const [totalPages, setTotalPages] = useState<number>();
   useEffect(() => {

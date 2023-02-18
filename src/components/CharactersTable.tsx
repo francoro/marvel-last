@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ICharacters } from "../hooks/useFetchData";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -12,6 +11,7 @@ import Stack from "@mui/material/Stack";
 import { Box, TablePagination, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { ICharacters } from "../models";
 export interface IParamsCharactersTable {
   characters: ICharacters[];
   term: string;

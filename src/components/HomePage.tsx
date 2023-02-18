@@ -7,10 +7,10 @@ import {
   ComponentType,
 } from "react";
 import "../App.css";
-import { ICharacters, useFetchData } from "../hooks/useFetchData";
+import { useFetchData } from "../hooks/useFetchData";
 import { Counter } from "./Counter";
 import { SearchInput } from "./SearchInput";
-import { TodoList } from "./TodoList/TodoList";
+import { TodoComponent } from "./TodoList";
 import { ThemeContext } from "../App";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -20,6 +20,7 @@ import Typography from "@mui/material/Typography";
 import { useSelector, useDispatch } from "react-redux";
 import { IParamsCharactersTable } from "./CharactersTable";
 import { SortTableHeader } from "./SortTableHeader";
+import { ICharacters } from "../models";
 
 const loadLazyComponent = () =>
   new Promise<{ default: ComponentType<IParamsCharactersTable> }>((resolve) => {
@@ -116,7 +117,7 @@ export const HomePage = () => {
         </Stack>
       </div>
 
-      <TodoList />
+      <TodoComponent />
 
       <Button
         variant="outlined"

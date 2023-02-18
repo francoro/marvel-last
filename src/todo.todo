@@ -1,5 +1,4 @@
 //New features:
-// add pages of pagination  PREV 1 2 3 5 6 NEXT highlight the current
 // navbar
 //form of fields with validation, password email, date picker regex, maybe file upload also?
 
@@ -9,3 +8,4 @@
 
 //perf
 // separete in components TODO list, it's getting to big the component
+// separete todo models folder the interfaces enums types

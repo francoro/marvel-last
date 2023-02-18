@@ -1,6 +1,6 @@
 import { takeEvery, call, put } from "redux-saga/effects";
 import { Md5 } from "md5-typescript";
-import { ICharacters } from "../hooks/useFetchData";
+import { ICharacters } from "../models";
 
 const fetchCharacters = async () => {
   const publicKey = process.env.REACT_APP_PUBLIC_KEY;

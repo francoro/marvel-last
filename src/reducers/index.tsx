@@ -1,5 +1,5 @@
-import { ICharacters } from "../hooks/useFetchData";
 import { Action, AnyAction } from "redux";
+import { ICharacters } from "../models";
 
 interface State {
   data: { data: { characters: ICharacters[] } };
