@@ -5,7 +5,7 @@ import { EVENTS, SERIES, STORIES } from "../constants";
 import { IEvent, ISerie, IStory } from "../models";
 import { Select } from "./Select";
 
-export const AmenitiesTable = () => {
+export const SelectsTable = () => {
   const [selectedStory, setSelectedStory] = useState<IStory | undefined>(
     undefined
   );
