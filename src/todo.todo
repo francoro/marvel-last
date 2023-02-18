@@ -1,11 +1,6 @@
 //New features:
-// navbar
 //form of fields with validation, password email, date picker regex, maybe file upload also?
-
+//improve darkmode
 
 //Practice
 //practice generics typescript
-
-//perf
-// separete in components TODO list, it's getting to big the component
-// separete todo models folder the interfaces enums types

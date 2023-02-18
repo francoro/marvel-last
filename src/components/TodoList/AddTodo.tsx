@@ -4,6 +4,7 @@ import { SquareColors } from ".";
 import Typography from "@mui/material/Typography";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
+import React from "react";
 
 interface IAddTodoParams {
   handleSubmit: () => void;
@@ -18,35 +19,37 @@ const TextFieldCustom = styled(TextField)`
   }
 `;
 
-export const AddTodo = ({
-  handleChangeTodo,
-  newTodo,
-  handleSubmit,
-  colorSelectedName,
-}: IAddTodoParams) => {
-  return (
-    <Box mb={2}>
-      <Typography mt={2} mb={1} variant="h6">
-        New Todo
-      </Typography>
-      <TextFieldCustom
-        type="text"
-        value={newTodo}
-        onChange={(event) => handleChangeTodo(event.target.value)}
-      />
-      <Button
-        sx={{ ml: 2 }}
-        variant="contained"
-        size="small"
-        disabled={
-          newTodo === "" || colorSelectedName === SquareColors.Undefined
-        }
-        onClick={() => {
-          handleSubmit();
-        }}
-      >
-        Add Todo
-      </Button>
-    </Box>
-  );
-};
+export const AddTodo = React.memo(
+  ({
+    handleChangeTodo,
+    newTodo,
+    handleSubmit,
+    colorSelectedName,
+  }: IAddTodoParams) => {
+    return (
+      <Box mb={2}>
+        <Typography mt={2} mb={1} variant="h6">
+          New Todo
+        </Typography>
+        <TextFieldCustom
+          type="text"
+          value={newTodo}
+          onChange={(event) => handleChangeTodo(event.target.value)}
+        />
+        <Button
+          sx={{ ml: 2 }}
+          variant="contained"
+          size="small"
+          disabled={
+            newTodo === "" || colorSelectedName === SquareColors.Undefined
+          }
+          onClick={() => {
+            handleSubmit();
+          }}
+        >
+          Add Todo
+        </Button>
+      </Box>
+    );
+  }
+);

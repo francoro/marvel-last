@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import styled from "styled-components";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -41,7 +41,7 @@ export const TodoComponent = () => {
     undefined | boolean
   >(undefined);
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     setTodos([
       ...todos,
       { id: nextId, name: newTodo, color: colorSelectedName },
@@ -49,11 +49,15 @@ export const TodoComponent = () => {
     setNextId((prevTodo) => prevTodo + 1);
     setNewTodo("");
     setColorSelectedName(SquareColors.Undefined);
-  };
+  }, [newTodo]);
 
-  const handleSetTodos = (todos: ITodos[]) => {
+  const handleSetTodos = useCallback((todos: ITodos[]) => {
     setTodos(todos);
-  };
+  }, []);
+
+  const handleSetTodo = useCallback((todo: string) => {
+    setNewTodo(todo);
+  }, []);
 
   function assertNever(value: SquareColors): never {
     setColorSelectedName(SquareColors.Undefined);
@@ -88,7 +92,7 @@ export const TodoComponent = () => {
       <div>
         <AddTodo
           newTodo={newTodo}
-          handleChangeTodo={setNewTodo}
+          handleChangeTodo={handleSetTodo}
           handleSubmit={handleSubmit}
           colorSelectedName={colorSelectedName}
         />
