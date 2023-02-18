@@ -15,7 +15,6 @@ interface ITodosParams {
 
 export const TodoList = React.memo(
   ({ handleSetTodos, todos }: ITodosParams) => {
-    console.log("ENTRO");
     const [isSameIdThatTheOneSelected, setSameIdSelected] = useState(-1);
     const [isUpdatingRightNow, setIsUpdatingRightNow] = useState(false);
     const handleTodoUpdate = (index: number, value: string) => {

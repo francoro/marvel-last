@@ -12,6 +12,7 @@ import { Box, TablePagination, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { ICharacters } from "../models";
+import { AmenitiesTable } from "./AmenitiesTable";
 export interface IParamsCharactersTable {
   characters: ICharacters[];
   term: string;
@@ -62,6 +63,9 @@ const CharactersTable = React.memo(
                 <TableCell>Image</TableCell>
                 <TableCell>{SortComponent}</TableCell>
                 <TableCell>Description</TableCell>
+                <TableCell>Series</TableCell>
+                <TableCell>Events</TableCell>
+                <TableCell>Stories</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -116,6 +120,8 @@ const CharactersTable = React.memo(
                           </Box>
                         </Stack>
                       </TableCell>
+                      <AmenitiesTable />
+                      {/* maybe create component for tyhe body of the table */}
                     </TableRow>
                   );
                 })}

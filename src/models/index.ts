@@ -30,3 +30,15 @@ export interface ICharacters {
     extension: string;
   };
 }
+
+export interface ISerie {
+  tvShowName: string;
+}
+
+export interface IEvent {
+  eventName: string
+}
+
+export interface IStory {
+  storyName: string
+}
