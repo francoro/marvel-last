@@ -34,11 +34,16 @@ export const Form = () => {
           if (!value.trim()) {
             setErrorMessageName("Name is required");
             return true;
+          } else {
+            setErrorMessageName(undefined);
           }
           break;
         case "email":
           if (!/\S+@\S+\.\S+/.test(value)) {
             setErrorMessageEmail("Invalid email format");
+            return true;
+          } else {
+            setErrorMessageEmail(undefined);
             return true;
           }
           break;
@@ -47,6 +52,9 @@ export const Form = () => {
             setErrorMessagePassword(
               "Password must be at least 8 characters long"
             );
+            return true;
+          } else {
+            setErrorMessagePassword(undefined);
             return true;
           }
           break;
@@ -104,7 +112,15 @@ export const Form = () => {
               }}
             />
           </Stack>
-          <Button variant="contained" type="submit">
+          <Button
+            disabled={
+              !!errorMessageEmail ||
+              !!errorMessageName ||
+              !!errorMessagePassword
+            }
+            variant="contained"
+            type="submit"
+          >
             Submit
           </Button>
         </Grid>
