@@ -1,9 +1,6 @@
 //New features:
-//form of fields with validation, password email, date picker regex, maybe file upload also?
 //improve darkmode
 
-//replace select component with the one of MUI
 
-// useReducer para form using proxy for validation
+//multiply counter using currying
 
-//do validation on the input, (red border) using MUI

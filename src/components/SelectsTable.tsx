@@ -3,7 +3,7 @@ import TableCell from "@mui/material/TableCell";
 import { useState } from "react";
 import { EVENTS, SERIES, STORIES } from "../constants";
 import { IEvent, ISerie, IStory } from "../models";
-import { Select } from "./Select";
+import { SelectComponent } from "./Select";
 
 export const SelectsTable = () => {
   const [selectedStory, setSelectedStory] = useState<IStory | undefined>(
@@ -20,30 +20,30 @@ export const SelectsTable = () => {
   return (
     <>
       <TableCell>
-        <Typography>Selected Story: {selectedStory?.storyName}</Typography>
-        <Select<IStory>
+        <SelectComponent<IStory>
           options={STORIES}
           value={selectedStory}
           onChange={setSelectedStory}
           getDisplayValue={(STORIES) => STORIES.storyName}
+          label="Stories"
         />
       </TableCell>
       <TableCell>
-        <Typography>Selected Event: {selectedEvent?.eventName}</Typography>
-        <Select<IEvent>
+        <SelectComponent<IEvent>
           options={EVENTS}
           value={selectedEvent}
           onChange={setSelectedEvent}
           getDisplayValue={(EVENTS) => EVENTS.eventName}
+          label="Events"
         />
       </TableCell>
       <TableCell>
-        <Typography>Selected Series: {selectedSeries?.tvShowName}</Typography>
-        <Select<ISerie>
+        <SelectComponent<ISerie>
           options={SERIES}
           value={selectedSeries}
           onChange={setSelectedSeries}
           getDisplayValue={(SERIES) => SERIES.tvShowName}
+          label="Series"
         />
       </TableCell>
     </>

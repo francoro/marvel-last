@@ -104,7 +104,7 @@ const CharactersTable = React.memo(
                           <Link to={`/character/${item.id}`}>{item.name}</Link>
                         </Stack>
                       </TableCell>
-                      <TableCell sx={{ verticalAlign: "top" }}>
+                      <TableCell sx={{ verticalAlign: "top", width: "40%" }}>
                         <Stack>
                           <Box sx={{ margin: 0 }}>
                             {item.description === "" ? (
