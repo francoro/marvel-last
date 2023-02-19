@@ -121,7 +121,6 @@ const CharactersTable = React.memo(
                         </Stack>
                       </TableCell>
                       <SelectsTable />
-                      {/* maybe create component for tyhe body of the table */}
                     </TableRow>
                   );
                 })}

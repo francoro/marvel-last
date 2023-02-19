@@ -2,14 +2,8 @@
 //form of fields with validation, password email, date picker regex, maybe file upload also?
 //improve darkmode
 
-//Practice
-//practice generics typescript
+//replace select component with the one of MUI
 
+// useReducer para form using proxy for validation
 
-//types 
-comics
-stories
-events
-seris     make select with generics
-
-make select for each showing name in select for each one
+//do validation on the input, (red border) using MUI

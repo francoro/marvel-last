@@ -21,6 +21,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { IParamsCharactersTable } from "./CharactersTable";
 import { SortTableHeader } from "./SortTableHeader";
 import { ICharacters } from "../models";
+import { Form } from "./Form";
 
 const loadLazyComponent = () =>
   new Promise<{ default: ComponentType<IParamsCharactersTable> }>((resolve) => {
@@ -130,6 +131,7 @@ export const HomePage = () => {
           <li key={item.id}>{item.name}</li>
         ))}
       </ul>
+      <Form />
       <Stack justifyContent={"center"} alignItems="center">
         <Suspense fallback={<div className="loading-spinner"></div>}>
           <CharactersTable
