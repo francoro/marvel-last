@@ -13,9 +13,15 @@ interface IAddTodoParams {
   handleChangeTodo: (value: string) => void;
 }
 
-const TextFieldCustom = styled(TextField)`
+export const TextFieldCustom = styled(TextField)`
   & .MuiInputBase-input {
     height: 0px;
+  }
+  & .MuiInputBase-root {
+    span {
+      position: relative;
+      top: 20px;
+    }
   }
 `;
 

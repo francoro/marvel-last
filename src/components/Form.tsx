@@ -1,4 +1,7 @@
+import { Button, Grid } from "@mui/material";
+import Stack from "@mui/material/Stack";
 import React, { useState } from "react";
+import { TextFieldCustom } from "./TodoList/AddTodo";
 
 interface IInitialState {
   name: string;
@@ -14,26 +17,36 @@ const initialState: IInitialState = {
 
 export const Form = () => {
   const [formData, setFormData] = useState(initialState);
+  const [errorMessageName, setErrorMessageName] = useState<undefined | string>(
+    undefined
+  );
+  const [errorMessageEmail, setErrorMessageEmail] = useState<
+    undefined | string
+  >(undefined);
+  const [errorMessagePassword, setErrorMessagePassword] = useState<
+    undefined | string
+  >(undefined);
 
   const formDataProxy = new Proxy(formData, {
     set(target, prop, value) {
-      console.log(4);
       switch (prop) {
         case "name":
           if (!value.trim()) {
-            console.error("Name is required");
+            setErrorMessageName("Name is required");
             return true;
           }
           break;
         case "email":
           if (!/\S+@\S+\.\S+/.test(value)) {
-            console.error("Invalid email format");
+            setErrorMessageEmail("Invalid email format");
             return true;
           }
           break;
         case "password":
           if (value.length < 8) {
-            console.error("Password must be at least 8 characters long");
+            setErrorMessagePassword(
+              "Password must be at least 8 characters long"
+            );
             return true;
           }
           break;
@@ -51,40 +64,51 @@ export const Form = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Name:
-        <input
-          type="text"
-          value={formDataProxy.name}
-          onChange={(e) => {
-            formDataProxy.name = e.target.value;
-            setFormData({ ...formData, name: e.target.value });
-          }}
-        />
-      </label>
-      <label>
-        Email:
-        <input
-          type="email"
-          value={formDataProxy.email}
-          onChange={(e) => {
-            formDataProxy.email = e.target.value;
-            setFormData({ ...formData, email: e.target.value });
-          }}
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          value={formDataProxy.password}
-          onChange={(e) => {
-            formDataProxy.password = e.target.value;
-            setFormData({ ...formData, password: e.target.value });
-          }}
-        />
-      </label>
-      <button type="submit">Submit</button>
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <Stack mb={1}>
+            <TextFieldCustom
+              error={!!errorMessageName}
+              placeholder="Name"
+              value={formDataProxy.name}
+              helperText={errorMessageName}
+              onChange={(e) => {
+                formDataProxy.name = e.target.value;
+                setFormData({ ...formData, name: e.target.value });
+              }}
+            />
+          </Stack>
+          <Stack mb={1}>
+            <TextFieldCustom
+              error={!!errorMessageEmail}
+              helperText={errorMessageEmail}
+              placeholder="Email"
+              type="email"
+              value={formDataProxy.email}
+              onChange={(e) => {
+                formDataProxy.email = e.target.value;
+                setFormData({ ...formData, email: e.target.value });
+              }}
+            />
+          </Stack>
+          <Stack mb={1}>
+            <TextFieldCustom
+              error={!!errorMessagePassword}
+              helperText={errorMessagePassword}
+              placeholder="Password"
+              type="password"
+              value={formDataProxy.password}
+              onChange={(e) => {
+                formDataProxy.password = e.target.value;
+                setFormData({ ...formData, password: e.target.value });
+              }}
+            />
+          </Stack>
+          <Button variant="contained" type="submit">
+            Submit
+          </Button>
+        </Grid>
+      </Grid>
     </form>
   );
 };
